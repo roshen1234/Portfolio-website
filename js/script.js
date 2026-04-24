@@ -28,7 +28,8 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 }, {
-    threshold: 0.1  // Triggers when just 10% of section is visible
+        threshold: 0,
+        rootMargin: '0px 0px -50px 0px'  
 });
 
 sections.forEach(sec => observer.observe(sec));
