@@ -1,78 +1,49 @@
 // toggle icon navbar
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
-
-menuIcon.onclick=()=>{
-    menuIcon.classList.toggle('bx-x')
-    navbar.classList.toggle('active')
+menuIcon.onclick = () => {
+    menuIcon.classList.toggle('bx-x');
+    navbar.classList.toggle('active');
 }
 
-// scroll sections
 let sections = document.querySelectorAll('section');
 let navLinks = document.querySelectorAll('header nav a');
 
+// IntersectionObserver - catches sections even on very fast scroll
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Add animation when section enters view
+            entry.target.classList.add('show-animate');
 
-// let header=document.querySelector('.header')
+            // Update active nav link
+            let id = entry.target.getAttribute('id');
+            navLinks.forEach(link => link.classList.remove('active'));
+            let activeLink = document.querySelector('header nav a[href*=' + id + ']');
+            if (activeLink) activeLink.classList.add('active');
 
-// header.addEventListener('click',function(e){
-// let id=e.target.dataset.id
-// if(id)
-// {
-//     navLinks.forEach(link =>{
-//         link.classList.remove('active')
-//     })
-//     e.target.classList.add('active')
-// }
-// })
-// or the comand written insite the window.onscroll
- 
+        } else if (entry.boundingClientRect.top > 0) {
+            // Only remove animation for sections below viewport (not yet reached)
+            entry.target.classList.remove('show-animate');
+        }
+    });
+}, {
+    threshold: 0.1  // Triggers when just 10% of section is visible
+});
 
+sections.forEach(sec => observer.observe(sec));
 
-
-// window.addEventListener("scroll",function(){
-    // )}
-    // or
+// Keep your scroll for sticky header, footer, and navbar close
 window.onscroll = () => {
-   
-   
-//    active navbarlink
-
-sections.forEach(sec=>{
-    let top=window.scrollY;
-    let offset=sec.offsetTop-100;
-    let height=sec.offsetHeight;
-    let id=sec.getAttribute('id');
-    if(top>=offset && top<offset+height)
-    {
-        navLinks.forEach(link=>{
-            link.classList.remove('active')
-            document.querySelector('header nav a[href*='+id+']').classList.add('active');
-        })
-        //active section for animate on scroll
-        sec.classList.add('show-animate');
-    }
-    else{
-        // if want to use animate the rrpeat on scroll use this
-        sec.classList.remove('show-animate');
-    }
-})
-   
-   
     // sticky header
-   let header=document.querySelector('header');
-   header.classList.toggle('sticky',window.scrollY>100)
+    let header = document.querySelector('header');
+    header.classList.toggle('sticky', window.scrollY > 100);
 
+    // remove toggle icon and navbar when scroll
+    menuIcon.classList.remove('bx-x');
+    navbar.classList.remove('active');
 
-    
-// remove toggle icon and navbar when click navbar links (scroll)
-  menuIcon.classList.remove('bx-x')
-  navbar.classList.remove('active')
-    
-  // animation footer on scroll
-   let footer =document.querySelector('footer');
-   footer.classList.toggle('show-animate', this.innerHeight + this.scrollY >= document.scrollingElement.scrollHeight);
-
-
+    // animation footer on scroll
+    let footer = document.querySelector('footer');
+    footer.classList.toggle('show-animate', this.innerHeight + this.scrollY >= document.scrollingElement.scrollHeight);
 }
-
-

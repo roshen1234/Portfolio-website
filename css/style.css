@@ -764,8 +764,10 @@ background:var(--second-bg-color) ;
 .skills.show-animate .animate,
 .contact.show-animate .animate,
 .footer.show-animate .animate{
-    animation: showRight 1s ease forwards;
-    animation-delay: calc(.3s * var(--i));
+    /* animation: showRight 1s ease forwards;
+    animation-delay: calc(.3s * var(--i)); */
+    animation: showRight 0.5s ease forwards;
+    animation-delay: calc(.08s * var(--i));
 }
 
 
