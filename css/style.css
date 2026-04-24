@@ -90,7 +90,8 @@ section{
     display: flex;
     align-items: center;
     padding: 0 9% ;
-    background: url(file:///C:/Users/rosha/Desktop/html%20javascript%20css%20projects/portfolio/images/image.jpg) no-repeat;
+    /* background: url(file:///C:/Users/rosha/Desktop/html%20javascript%20css%20projects/portfolio/images/image.jpg) no-repeat; */
+    background: url(../images/image.jpg) no-repeat;
     background-size: cover;
     background-position:center ;
 }
